@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Billing System</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding-top: 50px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 800px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-table {
+      width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+    }
+
+    .menu-table th, .menu-table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .menu-table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    input[type="number"] {
+      width: 50px;
+      padding: 5px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+      display: block;
+      margin: 10px auto;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .bill-summary {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .bill-summary p {
+      font-size: 1.2rem;
+      margin: 5px 0;
+    }
+
+    .bill-summary .total {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Bill</h1>
+    <h3>Menu</h3>
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pizza</td>
+          <td>$12</td>
+          <td><input type="number" id="pizza-qty" value="0" min="0"></td>
+        </tr>
+        <tr>
+          <td>Burger</td>
+          <td>$8</td>
+          <td><input type="number" id="burger-qty" value="0" min="0"></td>
+        </tr>
+        <tr>
+          <td>Pasta</td>
+          <td>$10</td>
+          <td><input type="number" id="pasta-qty" value="0" min="0"></td>
+        </tr>
+        <tr>
+          <td>Salad</td>
+          <td>$6</td>
+          <td><input type="number" id="salad-qty" value="0" min="0"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button onclick="calculateBill()">Calculate Bill</button>
+
+    <div class="bill-summary" id="bill-summary" style="display: none;">
+      <h3>Bill Summary</h3>
+      <p>Subtotal: $<span id="subtotal">0.00</span></p>
+      <p>Tax (10%): $<span id="tax">0.00</span></p>
+      <p class="total">Total: $<span id="total">0.00</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Function to calculate the bill
+    function calculateBill() {
+      // Get the quantities of each item
+      const pizzaQty = parseInt(document.getElementById("pizza-qty").value) || 0;
+      const burgerQty = parseInt(document.getElementById("burger-qty").value) || 0;
+      const pastaQty = parseInt(document.getElementById("pasta-qty").value) || 0;
+      const saladQty = parseInt(document.getElementById("salad-qty").value) || 0;
+
+      // Prices of the items
+      const pizzaPrice = 12;
+      const burgerPrice = 8;
+      const pastaPrice = 10;
+      const saladPrice = 6;
+
+      // Calculate the subtotal
+      const subtotal = (pizzaQty * pizzaPrice) + (burgerQty * burgerPrice) + (pastaQty * pastaPrice) + (saladQty * saladPrice);
+
+      // Calculate tax (10% of subtotal)
+      const tax = subtotal * 0.10;
+
+      // Calculate total
+      const total = subtotal + tax;
+
+      // Display the bill summary
+      document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+      document.getElementById("tax").textContent = tax.toFixed(2);
+      document.getElementById("total").textContent = total.toFixed(2);
+
+      // Show the bill summary
+      document.getElementById("bill-summary").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
